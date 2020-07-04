@@ -14,8 +14,15 @@ try {
     HttpURLConnection connection = url.openConnection();
     connection.setRequestMethod("Get");
 
-    BufferedReader in = new BufferedReader(new InputStreamReader())
+    BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+    String inputline;
+    StringBuffer content = new StringBuffer();
+    while ((inputline=in.readLine()) !=null){
+        content.append(inputline);
 
+    }
+System.out.println(content.toString());
+    in.close();
 
 } catch () catch (MalformedURLException e) {
     e.printStackTrace();
