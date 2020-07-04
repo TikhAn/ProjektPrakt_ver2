@@ -6,9 +6,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class main {
-    public static void main(String[] args) {
-        System.out.println("Hej Ewa zrób coś ))");
 
+    public static void main(String[] args) {
         try {
             URL url = new URL("https://api.adviceslip.com/advice");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -26,6 +25,5 @@ public class main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-}
+    }
