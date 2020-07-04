@@ -5,27 +5,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class main {
-    public static void main(String[] args) {
-        System.out.println("Hej");
+class Main {
 
-        try {
-            URL url = new URL("https://api.adviceslip.com/advice");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            System.out.println(content.toString());
-            in.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private static final String URL = "https://api.adviceslip.com/";
+
+    public static void main(String[] args) {
+
+        HttpClient httpClient = new HttpClient();
+        Slip slip = httpClient.fetch(URL+"advice", SlipResponse.class).getSlip();
+        System.out.println(slip.getAdvice());
 
     }
 }
