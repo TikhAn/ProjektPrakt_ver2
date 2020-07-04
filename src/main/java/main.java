@@ -4,16 +4,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Scanner;
 
 class Main {
 
-    private static final String URL = "https://api.adviceslip.com/";
 
     public static void main(String[] args) {
 
-        HttpClient httpClient = new HttpClient();
-        Slip slip = httpClient.fetch(URL+"advice", SlipResponse.class).getSlip();
-        System.out.println(slip.getAdvice());
+        Menu menu = new Menu(new AdviseService());
+        menu.displayMenu();
 
     }
 }
