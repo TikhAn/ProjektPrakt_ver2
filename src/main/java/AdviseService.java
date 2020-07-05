@@ -2,10 +2,9 @@
 public class AdviseService {
 
     private static final String URL = "https://api.adviceslip.com/";
+    private final HttpClient httpClient = new HttpClient();
 
     public Slip getRandomAdvice() {
-        HttpClient httpClient = new HttpClient();
-
         return httpClient.fetch(URL + "advice", SlipResponse.class).getSlip();
 
     }
