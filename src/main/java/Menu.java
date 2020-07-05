@@ -1,6 +1,9 @@
 
+import database.Slip;
 import http.SlipDto;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -36,6 +39,7 @@ public class Menu {
                     SlipDto randomAdvice = adviceService.getRandomAdvice();
                     String advice = randomAdvice.getAdvice();
                     adviceService.saveAdvice(randomAdvice);
+
                     System.out.println("");
                     System.out.println("*** ADVICE FOR YOU***");
                     System.out.println(advice);
@@ -47,7 +51,8 @@ public class Menu {
                     break;
                 }
                 case 3: {
-                    System.out.println("Not implemented yet, ssorry :( ");
+                    List<Slip> allAdvices = adviceService.getAllAdvices();
+                    System.out.println(Arrays.toString(allAdvices.toArray()));
                     break;
                 }
                 case 0: {

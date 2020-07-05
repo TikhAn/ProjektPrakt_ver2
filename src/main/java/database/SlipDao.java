@@ -1,52 +1,47 @@
 package database;
 
 import http.SlipDto;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlipDao {
 
 
-
-    @Entity
-    public class Slip {
-
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long slipId;
-
-        private long id;
-        private String advice;
-
-
-        public Slip(SlipDto slipDto) {
-            this.id = slipDto.getId();
-            this.advice = slipDto.getAdvice();
+        public void insertOrUpdate(Slip slip) {
+            Transaction transaction = null;
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                transaction = session.beginTransaction();
+                session.saveOrUpdate(slip);
+                transaction.commit();
+            } catch (IllegalStateException | RollbackException ise) {
+                System.err.println("Błąd wstawiania rekordu.");
+                ise.printStackTrace();
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+            }
         }
-
-        public Slip(long id, String advice) {
-            this.id = id;
-            this.advice = advice;
-        }
-
-        public long getId() {
-            return id;
-        }
-
-        public void setId(long id) {
-            this.id = id;
-        }
-
-        public String getAdvice() {
-            return advice;
-        }
-
-        public void setAdvice(String advice) {
-            this.advice = advice;
+        public List<Slip> getAll() {
+            List<Slip> list = new ArrayList<>();
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                CriteriaBuilder cb = session.getCriteriaBuilder();
+                CriteriaQuery<Slip> query = cb.createQuery(Slip.class);
+                Root<Slip> table = query.from(Slip.class);
+                query.select(table);
+                List<Slip> results = session.createQuery(query).list();
+                list.addAll(results);
+            } catch (HibernateException he) {
+                System.err.println("Listing error.");
+                he.printStackTrace();
+            }
+            return list;
         }
     }
-}
-
