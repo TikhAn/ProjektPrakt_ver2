@@ -1,5 +1,6 @@
-import com.google.gson.Gson;
+package http;
 
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,11 +18,10 @@ public class HttpClient {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
-            StringBuilder content = new StringBuilder();
+            StringBuffer content = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
-
             in.close();
 
             Gson gson = new Gson();
@@ -34,5 +34,4 @@ public class HttpClient {
         }
         return null;
     }
-
 }

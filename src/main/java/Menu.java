@@ -1,66 +1,63 @@
 
+import http.SlipDto;
+
 import java.util.Scanner;
 
 public class Menu {
 
-    private final AdviseService adviseService;
+    public final AdviceService adviceService;
 
-    public Menu(AdviseService adviseService) {
-        this.adviseService = adviseService;
+    public Menu(AdviceService adviceService) {
+        this.adviceService = adviceService;
     }
 
+    //user menu
     public void displayMenu() {
+        boolean doContinue = true;
 
-        boolean continuing = true;
-
-        while(continuing) {
-            System.out.println("AdviceBook");
-            System.out.println("Wybierz jedną z opcji");
-            System.out.println("1. Wylosuj cytat");
-            System.out.println("2. Wyszukaj cytat");
-            System.out.println("3. Moje cytaty"); // export, wyswietlanie, usuwanie cytatów
-            System.out.println("0. Zakończ");
-
-            int option=-1;
+        while (doContinue) {
+            System.out.println("");
+            System.out.println("Great advice for every day");
+            System.out.println("Choose one of the options:");
+            System.out.println("1. Random advice");
+            System.out.println("2. Search for advice by id or topic");
+            System.out.println("3. Saved quotes");  //in next step we can export saved quotes to file or delete them
+            System.out.println("0. Exit");
+            int nextInt = -1;
             Scanner scanner = new Scanner(System.in);
             if (scanner.hasNextInt()) {
-                option = scanner.nextInt();
-            } else {
-
+                nextInt = scanner.nextInt();
             }
-            switch(option) {
-                case 0: {
-                    continuing=false;
-                    break;
-                }
+
+
+            //what to do after user choice
+            switch (nextInt) {
                 case 1: {
-                    System.out.println("******Cytat dla Ciebie******");
-                    System.out.println(adviseService.getRandomAdvice().getAdvice());
-                    System.out.println("******");
+                    SlipDto randomAdvice = adviceService.getRandomAdvice();
+                    String advice = randomAdvice.getAdvice();
+                    adviceService.saveAdvice(randomAdvice);
+                    System.out.println("");
+                    System.out.println("*** ADVICE FOR YOU***");
+                    System.out.println(advice);
+                    System.out.println("****");
                     break;
                 }
                 case 2: {
-                    System.out.println("Praca w toku...");
+                    System.out.println("Not implemented yet, ssorry :( ");
                     break;
                 }
                 case 3: {
-                    System.out.println("Praca w toku...");
-
+                    System.out.println("Not implemented yet, ssorry :( ");
                     break;
                 }
-                case -1: {
-                    System.out.println("Wpisz liczbe!");
-
+                case 0: {
+                    doContinue = false;
                     break;
                 }
                 default: {
-                    System.out.println("Funkcja nieobslugiwana - wybierz inny numer");
-
+                    System.out.println("Wrong command");
                 }
-
             }
         }
     }
-
-
 }
