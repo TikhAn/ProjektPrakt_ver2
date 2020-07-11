@@ -7,9 +7,8 @@ public class SmallMenuCase1 {
     public SmallMenuCase1 (AdviceService adviceService) {
         this.adviceService = adviceService;
     }
-    public void smallMenu1() {
+    public void smallMenu1(SlipDto randomAdvice) {
         boolean doContiunue = true;
-        SlipDto randomAdvice = adviceService.getRandomAdvice();
         while (doContiunue) {
             System.out.println();
             System.out.println("Choose one of the options:");

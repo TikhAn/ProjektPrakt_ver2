@@ -44,7 +44,7 @@ public class Menu {
                     System.out.println("******************************");
 
                     SmallMenuCase1 smallMenu = new SmallMenuCase1 (adviceService);
-                    smallMenu.smallMenu1();
+                    smallMenu.smallMenu1(randomAdvice);
                     break;
                 }
                 case 2: {
