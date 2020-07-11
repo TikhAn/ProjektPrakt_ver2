@@ -41,9 +41,12 @@ public class Menu {
                     adviceService.saveAdvice(randomAdvice);
 
                     System.out.println("");
-                    System.out.println("*** ADVICE FOR YOU***");
+                    System.out.println("******Advice for you ******");
                     System.out.println(advice);
-                    System.out.println("****");
+                    System.out.println("******************************");
+
+                    SmallMenuCase1 smallMenu = new SmallMenuCase1 (adviceService);
+                    smallMenu.smallMenu1(randomAdvice);
                     break;
                 }
                 case 2: {
