@@ -1,4 +1,3 @@
-
 import database.Slip;
 import http.SlipDto;
 
@@ -19,7 +18,7 @@ public class Menu {
         boolean doContinue = true;
 
         while (doContinue) {
-            System.out.println("");
+            System.out.println();
             System.out.println("Great advice for every day");
             System.out.println("Choose one of the options:");
             System.out.println("1. Random advice");
@@ -40,21 +39,25 @@ public class Menu {
                     String advice = randomAdvice.getAdvice();
                     adviceService.saveAdvice(randomAdvice);
 
-                    System.out.println("");
+                    System.out.println();
                     System.out.println("*** ADVICE FOR YOU***");
                     System.out.println(advice);
                     System.out.println("****");
                     break;
                 }
                 case 2: {
-                    System.out.println("Not implemented yet, ssorry :( ");
+                    System.out.println("Not implemented yet, sorry bro/sis:( ");
                     break;
                 }
                 case 3: {
-                    List<Slip> allAdvices = adviceService.getAllAdvices();
+                    List<Slip> allAdvices = AdviceService.getAllAdvices();
                     System.out.println(Arrays.toString(allAdvices.toArray()));
+
+                    SmallMenuCase3 smallMenu = new SmallMenuCase3(adviceService);
+                    smallMenu.smallMenu3();
                     break;
                 }
+
                 case 0: {
                     doContinue = false;
                     break;

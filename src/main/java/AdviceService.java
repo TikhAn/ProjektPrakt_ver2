@@ -15,11 +15,11 @@ public class AdviceService {
 
     public SlipDto getRandomAdvice() {
 
-        return  httpClient.fetch(URL + "advice", SlipResponse.class).getSlip();
+        return httpClient.fetch(URL + "advice", SlipResponse.class).getSlip();
 
     }
 
-    public void saveAdvice(SlipDto slip){
+    public void saveAdvice(SlipDto slip) {
         Slip slipToSave = new Slip(slip);
 
         SlipDao slipDao = new SlipDao();
@@ -27,11 +27,18 @@ public class AdviceService {
 
     }
 
-    public List<Slip> getAllAdvices() {
+    public static List<Slip> getAllAdvices() {
 
         SlipDao slipDao = new SlipDao();
         List<Slip> slips = slipDao.getAll();
 
         return slips;
+    }
+
+    public void deleteAdvice(SlipDto slip) {
+        Slip slipToDelete = new Slip(slip);
+
+        SlipDao slipDao = new SlipDao();
+        slipDao.deleteSlip(slipToDelete);
     }
 }
