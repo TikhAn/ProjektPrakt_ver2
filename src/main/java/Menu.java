@@ -1,5 +1,6 @@
 
 import database.Slip;
+import http.SlipNotFoundException;
 import http.SlipDto;
 
 import java.util.Arrays;
@@ -9,13 +10,17 @@ import java.util.Scanner;
 public class Menu {
 
     public final AdviceService adviceService;
+    public final AdviceClient adviceClient;
+    public final AdviceExporter adviceExporter;
 
-    public Menu(AdviceService adviceService) {
+    public Menu(AdviceService adviceService, AdviceClient adviceClient, AdviceExporter adviceExporter) {
         this.adviceService = adviceService;
+        this.adviceClient = adviceClient;
+        this.adviceExporter = adviceExporter;
     }
 
     //user menu
-    public void displayMenu() {
+    public void displayMenu() throws SlipNotFoundException {
         boolean doContinue = true;
 
         while (doContinue) {
@@ -36,22 +41,37 @@ public class Menu {
             //what to do after user choice
             switch (nextInt) {
                 case 1: {
-                    SlipDto randomAdvice = adviceService.getRandomAdvice();
+                    SlipDto randomAdvice = adviceClient.getRandomAdvice();
                     String advice = randomAdvice.getAdvice();
                     System.out.println("");
                     System.out.println("******Advice for you ******");
                     System.out.println(advice);
                     System.out.println("******************************");
 
-                    SmallMenuCase1 smallMenu = new SmallMenuCase1 (adviceService);
+                    SmallMenuCase1 smallMenu = new SmallMenuCase1(adviceService);
                     smallMenu.smallMenu1(randomAdvice);
                     break;
                 }
                 case 2: {
-                    System.out.println("Not implemented yet, ssorry :( ");
+                    System.out.println("What are you looking for?");
+                    String search = scanner.next();
+
+                    try {
+                        int searchInt = Integer.parseInt(search);
+                        //System.out.println(adviceService.searchById(nextInt));
+
+                    } catch (NumberFormatException e) {
+                        System.out.println(adviceClient.searchByString(search));
+                    }
                     break;
                 }
+
                 case 3: {
+                    AdviceExporter adviceExporter = new AdviceExporter();
+                    break;
+                }
+
+                case 4: {
                     List<Slip> allAdvices = adviceService.getAllAdvices();
                     System.out.println(Arrays.toString(allAdvices.toArray()));
                     break;

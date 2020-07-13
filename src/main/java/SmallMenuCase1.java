@@ -26,7 +26,7 @@ public class SmallMenuCase1 {
                     break;
                 }
                 case 1: {
-                    randomAdvice = adviceService.getRandomAdvice();
+                    adviceService.getRandomAdvice();
                     String advice = randomAdvice.getAdvice();
                     System.out.println("");
                     System.out.println("****** Advice for you ******");

@@ -14,7 +14,7 @@ public class SmallMenuCase3 {
 
     public void smallMenu3() {
         boolean doContiunue = true;
-        SlipDto randomAdvice = adviceService.getRandomAdvice();
+        adviceService.getRandomAdvice();
         while (doContiunue) {
             System.out.println("SmallMenuCase3");
             System.out.println("Choose one of the options");
